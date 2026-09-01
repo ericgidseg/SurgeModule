@@ -10,6 +10,16 @@ function valueOr(value, fallback) {
   return value === undefined || value === null || value === "" ? fallback : value;
 }
 
+function twoColumns(left, right, width) {
+  left = String(valueOr(left, ""));
+  right = String(valueOr(right, ""));
+  var gap = width - left.length;
+  if (gap < 2) gap = 2;
+  var spaces = "";
+  while (spaces.length < gap) spaces += " ";
+  return left + spaces + right;
+}
+
 function maskIp(ip) {
   if (!ip) return "未知";
 
@@ -65,12 +75,12 @@ function render(data) {
   var ip = maskIp(data.ip);
 
   var lines = [
-    "✅ IP PURITY                 ● " + risk.english,
+    twoColumns("✅ IP PURITY", "● " + risk.english, 27),
     "",
-    "RISK SCORE              位置 " + flag,
-    "" + score + "                      " + city,
-    risk.text + "                  ASN " + asn,
-    "                         类型 " + networkType(data),
+    twoColumns("RISK SCORE", "位置 " + flag, 27),
+    twoColumns(score, city, 27),
+    twoColumns(risk.text, "ASN " + asn, 27),
+    twoColumns("", "类型 " + networkType(data), 27),
     "",
     "🌐  " + ipType + "  " + ip,
     "",
