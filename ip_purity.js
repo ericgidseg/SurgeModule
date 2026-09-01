@@ -96,7 +96,13 @@ function fail(error, status) {
   };
 }
 
-$httpClient.get(API_URL, { "Accept": "application/json", "User-Agent": "Surge IP Purity Panel" }, function (error, response, body) {
+$httpClient.get({
+  url: API_URL,
+  headers: {
+    "Accept": "application/json",
+    "User-Agent": "Surge IP Purity Panel"
+  }
+}, function (error, response, body) {
   if (error || !response || response.status < 200 || response.status >= 300) {
     $done(fail(error, response && response.status));
     return;
