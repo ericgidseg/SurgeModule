@@ -10,14 +10,28 @@ function valueOr(value, fallback) {
   return value === undefined || value === null || value === "" ? fallback : value;
 }
 
+function displayWidth(text) {
+  var characters = String(text).match(/[\uD800-\uDBFF][\uDC00-\uDFFF]|[\s\S]/g) || [];
+  var width = 0;
+  for (var i = 0; i < characters.length; i++) {
+    width += characters[i].charCodeAt(0) > 255 ? 2 : 1;
+  }
+  return width;
+}
+
 function twoColumns(left, right, width) {
   left = String(valueOr(left, ""));
   right = String(valueOr(right, ""));
-  var gap = width - left.length;
+  var gap = width - displayWidth(left);
   if (gap < 2) gap = 2;
   var spaces = "";
   while (spaces.length < gap) spaces += " ";
   return left + spaces + right;
+}
+
+function compactCity(city) {
+  city = String(valueOr(city, "未知")).replace(/\s+/g, " ");
+  return city.length > 12 ? city.substring(0, 11) + "…" : city;
 }
 
 function maskIp(ip) {
@@ -69,7 +83,7 @@ function render(data) {
   var risk = riskLabel(score);
   var asn = valueOr(data.asn, "未知");
   if (String(asn).indexOf("AS") !== 0) asn = "AS" + asn;
-  var city = valueOr(data.city, "未知");
+  var city = compactCity(data.city);
   var flag = flagFor(data.countryCode);
   var ipType = data.ip && data.ip.indexOf(":") !== -1 ? "IPv6" : "IPv4";
   var ip = maskIp(data.ip);
@@ -77,9 +91,10 @@ function render(data) {
   var lines = [
     twoColumns("✅ IP PURITY", "● " + risk.english, 27),
     "",
-    twoColumns("RISK SCORE", "位置：" + flag + " " + city, 27),
-    twoColumns(score, "ASN：" + asn, 27),
-    twoColumns(risk.text, "类型：" + networkType(data), 27),
+    twoColumns("RISK SCORE", "位置：" + flag, 20),
+    twoColumns(score, city, 20),
+    twoColumns(risk.text, "ASN：" + asn, 20),
+    twoColumns("", "类型：" + networkType(data), 20),
     "",
     "🌐  " + ipType + "  " + ip,
     "",
