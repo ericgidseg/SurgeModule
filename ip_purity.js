@@ -77,10 +77,9 @@ function render(data) {
   var lines = [
     twoColumns("✅ IP PURITY", "● " + risk.english, 27),
     "",
-    twoColumns("RISK SCORE", "位置 " + flag, 27),
-    twoColumns(score, city, 27),
-    twoColumns(risk.text, "ASN " + asn, 27),
-    twoColumns("", "类型 " + networkType(data), 27),
+    twoColumns("RISK SCORE", "位置：" + flag + " " + city, 27),
+    twoColumns(score, "ASN：" + asn, 27),
+    twoColumns(risk.text, "类型：" + networkType(data), 27),
     "",
     "🌐  " + ipType + "  " + ip,
     "",
