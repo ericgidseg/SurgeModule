@@ -7,4 +7,4 @@
 IP Purity = script-name=ip_purity.js, update-interval=600
 
 [Script]
-ip_purity.js = type=generic, script-path=ip_purity.js, timeout=10
+ip_purity.js = type=generic, script-path=https://raw.githubusercontent.com/ericgidseg/SurgeModule/main/ip_purity.js, timeout=10
