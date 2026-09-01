@@ -65,15 +65,16 @@ function render(data) {
   var ip = maskIp(data.ip);
 
   var lines = [
-    "✅  IP PURITY                              ● " + risk.english,
+    "✅ IP PURITY                 ● " + risk.english,
     "",
-    "             RISK SCORE                  位置 " + flag + " " + city,
-    "                 " + score + "                    ASN  " + asn,
-    "              " + risk.text + "                    类型  " + networkType(data),
+    "RISK SCORE              位置 " + flag,
+    "" + score + "                      " + city,
+    risk.text + "                  ASN " + asn,
+    "                         类型 " + networkType(data),
     "",
     "🌐  " + ipType + "  " + ip,
     "",
-    "◷  每 " + REFRESH_MINUTES + " 分钟刷新                  更新于刚刚"
+    "◷  每 " + REFRESH_MINUTES + " 分钟刷新          更新于刚刚"
   ];
 
   return {
