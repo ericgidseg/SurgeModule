@@ -1,0 +1,10 @@
+#!name=IP Purity
+#!desc=显示当前出口 IP 的风险、位置、ASN 和网络类型
+#!category=工具
+#!icon=https://ippure.com/favicon-96x96.png
+
+[Panel]
+IP Purity = script-name=ip_purity.js, update-interval=600
+
+[Script]
+ip_purity.js = type=generic, script-path=ip_purity.js, timeout=10
